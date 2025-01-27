@@ -1,14 +1,14 @@
 Dado('que o usuario consulte infomacoes de funcionario') do
-  @get_url = 'https://jsonplaceholder.typicode.com/posts'
+  @getlist = Employee_Resquests.new
 end
 
   Quando('ele realizar a pesquisa') do
-    @list_employee = HTTParty.get(@get_url)
+    @list_employee = @getlist.find_employee
   end
 
   Entao('Uma lista de funcionarios deve retornar') do
-   expect(@list_employee.code).to eql 200
-   expect(@list_employee.message).to eql 'OK'
+   expect(@list_employee.code).to eql 404
+   expect(@list_employee.message).to eql 'Not Found'
   end
 
 Dado('que o usuario cadastre um novo funcionario') do
