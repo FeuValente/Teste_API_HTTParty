@@ -57,3 +57,19 @@ Dado('que o usuario edite um funcionario') do
     puts @edit_employee.code
     puts @edit_employee.msg
   end
+
+Dado('que o usuario delete um funcionario') do
+  @get_employee = HTTParty.get('https://jsonplaceholder.typicode.com/posts', :headers => {'Content-Type': 'application/json'})
+  puts @get_employee[0]['id']
+  @delete_url = 'https://jsonplaceholder.typicode.com/posts/' + @get_employee[0]['id'].to_s
+  end
+  
+  Quando('ele delete as informacoes') do
+    @delete_employee = HTTParty.delete('https://jsonplaceholder.typicode.com/posts/1')
+    puts @delete_employee
+  end
+  
+  Entao('as informacoes sao deletadas') do
+    expect(@delete_employee.code).to eql 200
+    expect(@delete_employee.message).to eql 'OK'
+  end

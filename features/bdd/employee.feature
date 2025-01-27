@@ -21,3 +21,9 @@ Funcionalidade: PEsquisar Funcionarios
         Dado que o usuario edite um funcionario
         Quando ele edita as informacoes
         Entao as informacoes serao editadas
+
+    @cenario_quatro
+    Cenario: deletar funcionario
+        Dado que o usuario delete um funcionario
+        Quando ele delete as informacoes
+        Entao as informacoes sao deletadas
