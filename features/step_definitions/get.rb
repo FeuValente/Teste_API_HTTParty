@@ -33,3 +33,27 @@ Dado('que o usuario cadastre um novo funcionario') do
     puts @create_employee.msg
     #expect(@create_employee['title']).to eql 'não gosto de comer lasanha'  #simulando erro de retorno
   end
+
+Dado('que o usuario edite um funcionario') do
+    @get_employee = HTTParty.get('https://jsonplaceholder.typicode.com/posts', :headers => {'Content-Type': 'application/json'})
+    puts @get_employee[0]['id']
+    @put_url = 'https://jsonplaceholder.typicode.com/posts/' + @get_employee[0]['id'].to_s
+  end
+  
+  Quando('ele edita as informacoes') do
+    @edit_employee = HTTParty.put(@put_url, :headers => {'Content-Type': 'application/json'}, body: {
+        "userId": 1,
+        "id": 3,
+        "title": "comi bananada hoje de manha",
+        "body": "et iusto sed quo iure\nvoluptatem occaecati omnis eligendi aut ad\nvoluptatem doloribus vel accusantium quis pariatur\nmolestiae porro eius odio et labore et velit aut"
+    }.to_json)
+
+    puts @edit_employee
+  end
+  
+  Entao('as informacoes serao editadas') do
+    expect(@edit_employee.code).to eql 200
+    expect(@edit_employee.message).to eql 'OK'
+    puts @edit_employee.code
+    puts @edit_employee.msg
+  end
